@@ -1,0 +1,36 @@
+; systemd unit — only needed on a VPS (recommended: a European VPS, because
+; api.telegram.org is not reachable from Iranian IPs).
+;
+;   sudo cp deploy/azizi-bot.service /etc/systemd/system/
+;   sudo systemctl daemon-reload
+;   sudo systemctl enable --now azizi-bot
+;   journalctl -u azizi-bot -f
+[Unit]
+Description=Azizi Math Academy Telegram bot (polling)
+After=network-online.target
+Wants=network-online.target
+; never give up restarting, even after a burst of failures
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=azizi
+WorkingDirectory=/opt/azizi-telegram-bot
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=/opt/azizi-telegram-bot/.env
+ExecStart=/opt/azizi-telegram-bot/.venv/bin/python -m bot
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=30
+StandardOutput=journal
+StandardError=journal
+; light hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ReadWritePaths=/opt/azizi-telegram-bot/data
+
+[Install]
+WantedBy=multi-user.target
