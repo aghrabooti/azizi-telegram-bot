@@ -1,0 +1,31 @@
+# --- secrets & runtime data (NEVER commit, NEVER ship in zip) ---
+.env
+.env.*
+!.env.example
+data/
+*.db
+*.db-wal
+*.db-shm
+*.log
+
+# --- python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# --- preview build artifacts ---
+dev/preview/static/app-data.json
+dev/preview/dist/
+
+# --- editors / os ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
