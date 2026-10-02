@@ -1,0 +1,11 @@
+# Production dependencies — pinned on purpose.
+#
+# python-telegram-bot 22.8 is the first 22.x release that exposes the inline
+# button `style` parameter (primary / success / danger). Older 22.x releases
+# work too, but buttons fall back to "no style" (see bot/keyboards/builder.py).
+python-telegram-bot==22.8
+python-dotenv==1.1.1
+
+# Optional (recommended on busy bots): automatic flood control.
+#   pip install "python-telegram-bot[rate-limiter]==22.8"
+# The bot detects it at runtime and works fine without it.
