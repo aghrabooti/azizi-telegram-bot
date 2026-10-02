@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>پیش‌نمایش ربات تلگرام — آکادمی استاد مهدی عزیزی</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">🤖</span>
+    <div>
+      <h1>پیش‌نمایش زنده‌ی ربات</h1>
+      <p id="meta">در حال بارگذاری…</p>
+    </div>
+  </div>
+  <nav class="tabs">
+    <button class="tab active" data-tab="sim">💬 شبیه‌ساز ربات</button>
+    <button class="tab" data-tab="admin">🛠 پنل ادمین</button>
+    <button class="tab" data-tab="source">📂 سورس</button>
+    <button class="tab" data-tab="verify">✅ راستی‌آزمایی</button>
+    <button class="tab" data-tab="download">⬇️ دانلود</button>
+  </nav>
+</header>
+
+<main>
+  <!-- ---------------- simulator ---------------- -->
+  <section id="tab-sim" class="panel active">
+    <div class="phone">
+      <div class="phone-head">
+        <div class="avatar">م</div>
+        <div>
+          <strong>آکادمی استاد مهدی عزیزی</strong>
+          <small id="sim-state">در حال اجرا…</small>
+        </div>
+        <button id="restart" class="ghost">↺ شروع دوباره</button>
+      </div>
+      <div id="chat" class="chat"></div>
+      <div id="replykb" class="replykb hidden"></div>
+      <form id="composer" class="composer">
+        <input id="input" type="text" placeholder="پیام بنویسید…" autocomplete="off">
+        <button type="submit">ارسال</button>
+      </form>
+    </div>
+    <aside class="side">
+      <h3>وضعیت شبیه‌ساز</h3>
+      <ul id="sim-info" class="info"></ul>
+      <h3>میان‌بُرها</h3>
+      <div class="shortcuts">
+        <button data-cmd="/start">/start</button>
+        <button data-cmd="/menu">/menu</button>
+        <button data-cmd="/help">/help</button>
+        <button data-cmd="/admin">/admin</button>
+      </div>
+      <h3>گیت شماره</h3>
+      <p class="hint">
+        تا وقتی شماره ثبت نشده، هیچ دکمه‌ای صفحه نشان نمی‌دهد (هندلر گروه ‎-۱)،
+        متن نامعتبر خطا می‌گیرد و پیام غیرمتنی هم دوباره درخواست شماره می‌دهد.
+      </p>
+    </aside>
+  </section>
+
+  <!-- ---------------- admin ---------------- -->
+  <section id="tab-admin" class="panel">
+    <div class="phone">
+      <div class="phone-head">
+        <div class="avatar admin">🛠</div>
+        <div><strong>پنل مدیریت</strong><small>داده‌ی نمونه</small></div>
+        <button id="admin-restart" class="ghost">↺ /admin</button>
+      </div>
+      <div id="admin-chat" class="chat"></div>
+    </div>
+    <aside class="side">
+      <h3>بخش‌های پنل</h3>
+      <ul class="info" id="admin-sections"></ul>
+      <p class="hint">
+        در ربات واقعی این صفحه‌ها فقط برای آیدی‌های داخل <code>ADMIN_IDS</code> باز می‌شوند
+        و داده‌ها از SQLite خوانده می‌شوند.
+      </p>
+    </aside>
+  </section>
+
+  <!-- ---------------- source ---------------- -->
+  <section id="tab-source" class="panel">
+    <aside class="side files">
+      <h3>فایل‌های پروژه (<span id="file-count">0</span>)</h3>
+      <input id="file-filter" type="search" placeholder="جستجوی فایل…">
+      <ul id="file-list"></ul>
+    </aside>
+    <div class="codewrap">
+      <div class="codehead"><span id="code-path">یک فایل را انتخاب کنید</span>
+        <span id="code-size"></span></div>
+      <pre id="code"></pre>
+    </div>
+  </section>
+
+  <!-- ---------------- verify ---------------- -->
+  <section id="tab-verify" class="panel column">
+    <div class="card">
+      <h2>راستی‌آزمایی خودکار HTTP</h2>
+      <p>سرور پیش‌نمایش به خودش درخواست می‌زند، صفحه‌ها و زیپ را بررسی می‌کند و نتیجه را
+        همین‌جا نشان می‌دهد.</p>
+      <button id="run-verify" class="primary">اجرای بررسی</button>
+      <div id="verify-result"></div>
+    </div>
+  </section>
+
+  <!-- ---------------- download ---------------- -->
+  <section id="tab-download" class="panel column">
+    <div class="card">
+      <h2>دانلود سورس کامل</h2>
+      <p>زیپ نسخه‌دار و ضد کش، شامل <code>BUILD_INFO.txt</code>.
+        فایل <code>.env</code> و پوشه‌ی <code>data/</code> هرگز داخل آن نیستند.</p>
+      <ul id="zip-info" class="info"></ul>
+      <a id="download-link" class="primary" href="/download">⬇️ دانلود زیپ</a>
+      <button id="rebuild" class="ghost">♻️ ساخت دوباره از روی سورس</button>
+    </div>
+  </section>
+</main>
+
+<div id="toast" class="toast hidden"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
